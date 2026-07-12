@@ -5,7 +5,7 @@ import type { Goal } from "../models/Goal.js";
 import type { Liability } from "../models/Liability.js";
 
 /** Complete domain input required to assess current financial health. */
-export interface FinancialHealthInput {
+export interface HealthEngineInput {
   profile: FinancialProfile;
   assets: Asset[];
   liabilities: Liability[];
@@ -13,6 +13,6 @@ export interface FinancialHealthInput {
 }
 
 /** Public contract for the financial-health engine. */
-export interface FinancialHealthEngine {
-  calculate(input: FinancialHealthInput): FinancialHealth;
+export interface HealthEngine {
+  calculate(input: HealthEngineInput): FinancialHealth;
 }

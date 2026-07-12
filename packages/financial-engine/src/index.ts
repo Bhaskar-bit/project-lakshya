@@ -6,9 +6,9 @@ export type { FinancialProfile } from "./models/FinancialProfile.js";
 export type { Goal } from "./models/Goal.js";
 export { GoalType } from "./models/Goal.js";
 export type {
-  FinancialHealthEngine,
-  FinancialHealthInput,
-} from "./engines/FinancialHealthEngine.js";
+  HealthEngine,
+  HealthEngineInput,
+} from "./engines/HealthEngine.js";
 export type { Liability } from "./models/Liability.js";
 export { LiabilityType } from "./models/Liability.js";
 export type { PillarScore } from "./models/PillarScore.js";
