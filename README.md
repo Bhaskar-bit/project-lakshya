@@ -7,7 +7,8 @@ Monorepo for the Lakshya financial health platform.
 - `apps/web` — web application
 - `packages/financial-engine` — financial-health domain logic
 - `packages/ui` — shared UI components
-- `packages/shared` — shared utilities and types
+- `packages/types` — shared domain and application types
+- `packages/config` — shared tooling and application configuration
 - `docs` — product, architecture, and delivery documentation
 
 ## Getting started
