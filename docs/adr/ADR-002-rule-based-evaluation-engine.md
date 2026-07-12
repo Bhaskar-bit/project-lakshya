@@ -9,9 +9,9 @@ Financial-health scoring will evolve as the product gains new financial concepts
 
 ## Decision
 
-`HealthEngine` orchestrates evaluation; it does not contain financial scoring rules. A versioned `RuleRegistry` supplies independent `HealthRule` strategies. Each rule evaluates a `FinancialState` and returns an immutable, explainable `RuleResult` containing its score, maximum score, pillar, and reason.
+`HealthEngine` orchestrates evaluation; it does not contain financial scoring rules. A versioned `RuleRegistry` supplies independent `HealthRule` strategies. Each rule evaluates a `FinancialState` and returns an immutable, explainable `RuleResult` containing its score, maximum score, pillar, measurements, reasons, and findings.
 
-`HealthEngine` aggregates `RuleResult` values into an immutable, versioned `HealthReport`. Recommendation generation consumes rule results after evaluation and must not own scoring formulas.
+Measurements and findings are the durable domain facts. Scores interpret measurements; recommendations interpret findings. `HealthEngine` aggregates `RuleResult` values into an immutable, versioned `HealthReport`; it delegates grade interpretation to a `GradePolicy`. Recommendation generation consumes rule results after evaluation and must not own scoring formulas.
 
 The initial implementation contains only `SafetyRule`, which evaluates emergency-fund coverage against the six-month target.
 

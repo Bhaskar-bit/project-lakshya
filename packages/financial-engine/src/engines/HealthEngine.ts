@@ -1,6 +1,7 @@
 import type { FinancialState } from "../models/FinancialState.js";
 import { HealthGrade, type HealthReport } from "../models/HealthReport.js";
 import type { PillarScore } from "../models/PillarScore.js";
+import { DefaultGradePolicy, type GradePolicy } from "../policies/GradePolicy.js";
 import { RuleRegistry } from "./RuleRegistry.js";
 
 /** Orchestrates independently evaluated health rules into an audit report. */
@@ -9,6 +10,7 @@ export class HealthEngine {
     private readonly registry: RuleRegistry,
     private readonly engineVersion = "v1.0.0",
     private readonly now: () => Date = () => new Date(),
+    private readonly gradePolicy: GradePolicy = new DefaultGradePolicy(),
   ) {}
 
   public evaluate(state: FinancialState): HealthReport {
@@ -19,7 +21,7 @@ export class HealthEngine {
           type: result.pillar,
           score: result.score,
           maximumScore: result.maximumScore,
-          reason: result.reason,
+          reasons: result.reasons,
         }),
       ),
     );
@@ -32,20 +34,13 @@ export class HealthEngine {
 
     return Object.freeze({
       score,
-      grade: gradeFor(score),
+      grade: this.gradePolicy.gradeFor(score),
       pillars,
+      ruleResults: Object.freeze([...results]),
       recommendations: Object.freeze([]),
       generatedAt: this.now(),
       engineVersion: this.engineVersion,
       rulesVersion: this.registry.version,
     });
   }
-}
-
-function gradeFor(score: number): HealthGrade {
-  if (score >= 80) return HealthGrade.EXCELLENT;
-  if (score >= 60) return HealthGrade.GOOD;
-  if (score >= 40) return HealthGrade.FAIR;
-  if (score >= 20) return HealthGrade.POOR;
-  return HealthGrade.CRITICAL;
 }

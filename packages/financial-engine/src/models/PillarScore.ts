@@ -12,5 +12,5 @@ export interface PillarScore {
   readonly type: PillarType;
   readonly score: number;
   readonly maximumScore: number;
-  readonly reason: string;
+  readonly reasons: readonly string[];
 }
