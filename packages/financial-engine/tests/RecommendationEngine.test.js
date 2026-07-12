@@ -28,6 +28,7 @@ test("RecommendationEngine generates an emergency-fund recommendation from EF_LO
 
   assert.deepEqual(report.recommendations, [
     {
+      id: "RECOMMENDATION_001",
       title: "Build Emergency Fund",
       description: "Build liquid savings toward the recommended emergency-fund level.",
       priority: Priority.HIGH,

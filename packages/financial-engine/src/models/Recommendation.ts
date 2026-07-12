@@ -6,6 +6,7 @@ export enum Priority {
 
 /** An actionable suggestion with a measurable expected effect. */
 export interface Recommendation {
+  readonly id: string;
   readonly title: string;
   readonly description: string;
   readonly priority: Priority;

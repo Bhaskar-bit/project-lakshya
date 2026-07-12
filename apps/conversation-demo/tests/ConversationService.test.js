@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   AssetType,
+  ActionPlanEngine,
   EmergencyFundRecommendationRule,
   HealthEngine,
   RecommendationEngine,
@@ -18,6 +19,7 @@ test("ConversationService produces a review from assessments and recommendations
     new RecommendationEngine(
       new RecommendationRegistry("v1", [new EmergencyFundRecommendationRule()]),
     ),
+    new ActionPlanEngine(),
   );
   const conversation = service.evaluate({
     profile: { monthlyIncome: 200_000, monthlyExpenses: 80_000, age: 32, retirementAge: 60, dependents: 1 },

@@ -13,6 +13,7 @@ export class EmergencyFundRecommendationRule implements RecommendationRule {
 
   public create(_finding: Finding): Recommendation {
     return Object.freeze({
+      id: this.id,
       title: "Build Emergency Fund",
       description: "Build liquid savings toward the recommended emergency-fund level.",
       priority: Priority.HIGH,
