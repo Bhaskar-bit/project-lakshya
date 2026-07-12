@@ -32,6 +32,9 @@ test("RecommendationEngine generates an emergency-fund recommendation from EF_LO
       description: "Build liquid savings toward the recommended emergency-fund level.",
       priority: Priority.HIGH,
       expectedScoreIncrease: 6,
+      sourceFindingCode: "EF_LOW",
+      sourceFindingVersion: "v1",
+      measurableTarget: "Emergency Fund coverage of 6 months",
       expectedCompletion: "4 months",
     },
   ]);

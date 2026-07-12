@@ -12,9 +12,12 @@ export function renderFinancialConversation(conversation) {
     "Lakshay Financial Review",
     "=".repeat(WIDTH),
     "",
-    "Overall Financial Health",
+    healthReport.coverage.status === "PARTIAL" ? "Preliminary Financial Health" : "Overall Financial Health",
     "",
     `${healthReport.score} / 100 (${HealthGrade[healthReport.grade]})`,
+    "",
+    `Assessment coverage: ${Math.round((healthReport.coverage.evaluatedWeight / healthReport.coverage.totalSupportedWeight) * 100)}%`,
+    coverageSummary(healthReport.coverage.evaluatedPillars),
     "",
     "Summary",
     "",
@@ -64,5 +67,10 @@ function summaryFor(finding) {
     return "Your Emergency Fund is significantly below the recommended level.";
   }
   return finding.description;
+}
+
+function coverageSummary(evaluatedPillars) {
+  if (evaluatedPillars.length === 1) return "Only the Safety pillar has been evaluated.";
+  return `${evaluatedPillars.length} of 6 financial-health pillars have been evaluated.`;
 }
 import { HealthGrade } from "../../../packages/financial-engine/dist/index.js";

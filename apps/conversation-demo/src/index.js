@@ -1,5 +1,7 @@
 import {
   AssetType,
+  CashFlowRule,
+  DebtRule,
   EmergencyFundRecommendationRule,
   HealthEngine,
   RecommendationEngine,
@@ -11,7 +13,7 @@ import { ConversationService } from "./ConversationService.js";
 import { renderFinancialConversation } from "./renderFinancialConversation.js";
 
 const healthEngine = new HealthEngine(
-  new RuleRegistry("v1.0.0", [new SafetyRule()]),
+  new RuleRegistry("v1.0.0", [new SafetyRule(), new CashFlowRule(), new DebtRule()]),
   "v1.0.0",
 );
 const recommendationEngine = new RecommendationEngine(
@@ -36,7 +38,7 @@ const financialState = {
   liabilities: [],
   goals: [],
   investments: [],
-  cashFlow: { monthlyIncome: 200_000, monthlyExpenses: 80_000 },
+  cashFlow: { monthlyIncome: 200_000, monthlyEssentialExpenses: 60_000, monthlyDiscretionaryExpenses: 20_000 },
 };
 
 const conversation = lakshay.evaluate(financialState);

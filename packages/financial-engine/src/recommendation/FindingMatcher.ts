@@ -10,6 +10,8 @@ export class FindingMatcher {
     return Object.freeze(
       findings.flatMap((finding) =>
         this.rules.filter((rule) => rule.matches(finding)).map((rule) => rule.create(finding)),
+      ).sort((left, right) =>
+        left.priority - right.priority || right.expectedScoreIncrease - left.expectedScoreIncrease || left.title.localeCompare(right.title),
       ),
     );
   }

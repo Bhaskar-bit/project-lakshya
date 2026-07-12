@@ -17,6 +17,9 @@ export class EmergencyFundRecommendationRule implements RecommendationRule {
       description: "Build liquid savings toward the recommended emergency-fund level.",
       priority: Priority.HIGH,
       expectedScoreIncrease: 6,
+      sourceFindingCode: _finding.code,
+      sourceFindingVersion: _finding.version,
+      measurableTarget: "Emergency Fund coverage of 6 months",
       expectedCompletion: "4 months",
     });
   }

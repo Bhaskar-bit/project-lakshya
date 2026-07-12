@@ -25,13 +25,17 @@ test("ConversationService produces a review from assessments and recommendations
     liabilities: [],
     goals: [],
     investments: [],
-    cashFlow: { monthlyIncome: 200_000, monthlyExpenses: 80_000 },
+    cashFlow: { monthlyIncome: 200_000, monthlyEssentialExpenses: 60_000, monthlyDiscretionaryExpenses: 20_000 },
   });
 
   const review = renderFinancialConversation(conversation);
 
   assert.equal(conversation.topFinding.code, "EF_LOW");
   assert.equal(conversation.topRecommendation.title, "Build Emergency Fund");
+  assert.equal(conversation.healthReport.coverage.status, "PARTIAL");
+  assert.equal(conversation.healthReport.coverage.evaluatedWeight, 25);
+  assert.match(review, /Assessment coverage: 25%/);
+  assert.match(review, /Only the Safety pillar has been evaluated/);
   assert.match(review, /2\.0 months/);
   assert.match(review, /Estimated Completion/);
 });

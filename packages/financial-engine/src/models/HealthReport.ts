@@ -1,6 +1,7 @@
 import type { Recommendation } from "./Recommendation.js";
 import type { PillarScore } from "./PillarScore.js";
 import type { Assessment } from "./Assessment.js";
+import type { AssessmentCoverage } from "./AssessmentCoverage.js";
 
 export enum HealthGrade {
   EXCELLENT,
@@ -17,6 +18,7 @@ export interface HealthReport {
   readonly pillars: readonly PillarScore[];
   readonly assessments: readonly Assessment[];
   readonly recommendations: readonly Recommendation[];
+  readonly coverage: AssessmentCoverage;
   readonly generatedAt: Date;
   readonly engineVersion: string;
   readonly rulesVersion: string;

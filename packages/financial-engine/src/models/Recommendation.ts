@@ -10,5 +10,8 @@ export interface Recommendation {
   readonly description: string;
   readonly priority: Priority;
   readonly expectedScoreIncrease: number;
-  readonly expectedCompletion: string;
+  readonly sourceFindingCode: string;
+  readonly sourceFindingVersion: string;
+  readonly measurableTarget: string;
+  readonly expectedCompletion?: string;
 }

@@ -24,7 +24,7 @@ function state(assets) {
     liabilities: [],
     goals: [],
     investments: [],
-    cashFlow: { monthlyIncome: profile.monthlyIncome, monthlyExpenses: profile.monthlyExpenses },
+    cashFlow: { monthlyIncome: profile.monthlyIncome, monthlyEssentialExpenses: profile.monthlyExpenses, monthlyDiscretionaryExpenses: 0 },
   };
 }
 
@@ -86,6 +86,10 @@ test("HealthEngine aggregates rule results into an immutable versioned report", 
   assert.equal(report.assessments[0].metrics[3].value, 80_000);
   assert.equal(report.engineVersion, "v1.0.0");
   assert.equal(report.rulesVersion, "v1.0.0");
+  assert.equal(report.coverage.status, "PARTIAL");
+  assert.equal(report.coverage.evaluatedWeight, 25);
+  assert.equal(report.coverage.totalSupportedWeight, 100);
+  assert.deepEqual(report.coverage.evaluatedPillars, [PillarType.SAFETY]);
   assert.equal(report.generatedAt.toISOString(), "2026-07-12T00:00:00.000Z");
   assert.ok(Object.isFrozen(report));
   assert.ok(Object.isFrozen(report.assessments));
