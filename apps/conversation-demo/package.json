@@ -1,0 +1,11 @@
+{
+  "name": "@lakshya/conversation-demo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Terminal demonstration of Lakshya's first financial conversation.",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "npm --prefix ../../packages/financial-engine run build && node --test tests/**/*.test.js"
+  }
+}

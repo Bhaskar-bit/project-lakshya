@@ -1,6 +1,6 @@
 # RFC-004: Net Worth Engine
 
-**Status:** Proposed  
+**Status:** Proposed — Frozen pending financial-policy approval  
 **Date:** 2026-07-12  
 **Owners:** Project Lakshya Financial Core
 

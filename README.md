@@ -5,6 +5,7 @@ Monorepo for the Lakshya financial health platform.
 ## Structure
 
 - `apps/web` — web application
+- `apps/conversation-demo` — terminal demonstration of the first financial conversation
 - `packages/financial-engine` — financial-health domain logic
 - `packages/ui` — shared UI components
 - `packages/types` — shared domain and application types

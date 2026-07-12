@@ -1,0 +1,7 @@
+{
+  "name": "project-lakshya",
+  "private": true,
+  "scripts": {
+    "demo": "npm --prefix packages/financial-engine run build && npm --prefix apps/conversation-demo run start"
+  }
+}
