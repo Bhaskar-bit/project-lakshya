@@ -2,6 +2,7 @@
   "name": "@lakshya/financial-engine",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "description": "Pure domain logic for Project Lakshya financial health.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,7 +11,8 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "typecheck": "tsc --noEmit -p tsconfig.json"
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "npm run build && node --test tests/**/*.test.js"
   },
   "devDependencies": {
     "typescript": "^5.7.3"

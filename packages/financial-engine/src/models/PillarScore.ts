@@ -9,8 +9,8 @@ export enum PillarType {
 
 /** The weighted contribution of one financial-health pillar. */
 export interface PillarScore {
-  type: PillarType;
-  score: number;
-  maximumScore: number;
-  reason: string;
+  readonly type: PillarType;
+  readonly score: number;
+  readonly maximumScore: number;
+  readonly reason: string;
 }

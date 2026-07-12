@@ -1,17 +1,20 @@
 export type { Asset } from "./models/Asset.js";
 export { AssetType } from "./models/Asset.js";
-export type { FinancialHealth } from "./models/FinancialHealth.js";
-export { HealthGrade } from "./models/FinancialHealth.js";
+export type { CashFlow } from "./models/CashFlow.js";
+export type { FinancialState } from "./models/FinancialState.js";
+export type { HealthReport } from "./models/HealthReport.js";
+export { HealthGrade } from "./models/HealthReport.js";
 export type { FinancialProfile } from "./models/FinancialProfile.js";
 export type { Goal } from "./models/Goal.js";
 export { GoalType } from "./models/Goal.js";
-export type {
-  HealthEngine,
-  HealthEngineInput,
-} from "./engines/HealthEngine.js";
+export { HealthEngine } from "./engines/HealthEngine.js";
+export { RuleRegistry } from "./engines/RuleRegistry.js";
+export type { Investment } from "./models/Investment.js";
 export type { Liability } from "./models/Liability.js";
 export { LiabilityType } from "./models/Liability.js";
 export type { PillarScore } from "./models/PillarScore.js";
 export { PillarType } from "./models/PillarScore.js";
 export type { Recommendation } from "./models/Recommendation.js";
 export { Priority } from "./models/Recommendation.js";
+export type { RuleResult } from "./models/RuleResult.js";
+export { SafetyRule } from "./rules/SafetyRule.js";
