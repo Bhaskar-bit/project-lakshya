@@ -29,7 +29,7 @@ function state(assets) {
 }
 
 test("Emergency Fund reduces the safety score when coverage is below target", () => {
-  const rule = new SafetyRule();
+  const rule = new SafetyRule(() => new Date("2026-07-14T00:00:00.000Z"));
   const result = rule.evaluate(
     state([
       { id: "cash", type: AssetType.CASH, name: "Emergency cash", currentValue: 160_000 },
@@ -50,6 +50,8 @@ test("Emergency Fund reduces the safety score when coverage is below target", ()
   assert.deepEqual(result.findings[0], {
     severity: FindingSeverity.HIGH,
     code: "EF_LOW",
+    version: "v1",
+    since: new Date("2026-07-14T00:00:00.000Z"),
     title: "Emergency Fund below recommended level",
     description: "Current coverage is 2 months. Target is 6 months.",
   });
@@ -79,11 +81,12 @@ test("HealthEngine aggregates rule results into an immutable versioned report", 
 
   assert.equal(report.score, 32);
   assert.equal(report.pillars[0].score, 8);
-  assert.equal(report.ruleResults[0].metrics[2].value, 160_000);
-  assert.equal(report.ruleResults[0].metrics[3].value, 80_000);
+  assert.equal(report.assessments[0].ruleId, "SAFETY_001");
+  assert.equal(report.assessments[0].metrics[2].value, 160_000);
+  assert.equal(report.assessments[0].metrics[3].value, 80_000);
   assert.equal(report.engineVersion, "v1.0.0");
   assert.equal(report.rulesVersion, "v1.0.0");
   assert.equal(report.generatedAt.toISOString(), "2026-07-12T00:00:00.000Z");
   assert.ok(Object.isFrozen(report));
-  assert.ok(Object.isFrozen(report.ruleResults));
+  assert.ok(Object.isFrozen(report.assessments));
 });

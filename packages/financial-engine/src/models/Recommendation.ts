@@ -10,4 +10,5 @@ export interface Recommendation {
   readonly description: string;
   readonly priority: Priority;
   readonly expectedScoreIncrease: number;
+  readonly expectedCompletion: string;
 }

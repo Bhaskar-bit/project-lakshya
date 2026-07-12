@@ -8,6 +8,8 @@ export enum FindingSeverity {
 export interface Finding {
   readonly severity: FindingSeverity;
   readonly code: string;
+  readonly version: string;
+  readonly since: Date;
   readonly title: string;
   readonly description: string;
 }

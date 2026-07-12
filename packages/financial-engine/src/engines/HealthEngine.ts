@@ -36,7 +36,7 @@ export class HealthEngine {
       score,
       grade: this.gradePolicy.gradeFor(score),
       pillars,
-      ruleResults: Object.freeze([...results]),
+      assessments: Object.freeze([...results]),
       recommendations: Object.freeze([]),
       generatedAt: this.now(),
       engineVersion: this.engineVersion,

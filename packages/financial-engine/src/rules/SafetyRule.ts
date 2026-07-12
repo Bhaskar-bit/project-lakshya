@@ -3,18 +3,22 @@ import {
   LIQUID_ASSET_TYPES,
   SAFETY_MAXIMUM_SCORE,
 } from "../constants/safety.js";
+import type { Assessment } from "../models/Assessment.js";
+import type { Evidence } from "../models/Evidence.js";
 import { type FinancialState } from "../models/FinancialState.js";
 import { FindingSeverity, type Finding } from "../models/Finding.js";
 import type { Metric } from "../models/Metric.js";
 import { PillarType } from "../models/PillarScore.js";
-import type { RuleResult } from "../models/RuleResult.js";
 import type { HealthRule } from "./HealthRule.js";
 
 /** Scores emergency-fund readiness from liquid assets and monthly expenses. */
 export class SafetyRule implements HealthRule {
-  public readonly id = "safety.emergency-fund.v1";
+  public readonly id = "SAFETY_001";
+  public readonly version = "v1";
 
-  public evaluate(state: FinancialState): RuleResult {
+  public constructor(private readonly now: () => Date = () => new Date()) {}
+
+  public evaluate(state: FinancialState): Assessment {
     const monthlyExpenses = state.profile.monthlyExpenses;
     const liquidAssets = state.assets
       .filter((asset) => LIQUID_ASSET_TYPES.includes(asset.type))
@@ -52,12 +56,21 @@ export class SafetyRule implements HealthRule {
       }),
     ]);
     const reason = `Emergency Fund covers ${formatMonths(coverageMonths)} months.`;
+    const evidence: readonly Evidence[] = Object.freeze(
+      state.assets
+        .filter((asset) => LIQUID_ASSET_TYPES.includes(asset.type))
+        .map((asset) =>
+          Object.freeze({ label: asset.name, value: asset.currentValue, unit: "currency" }),
+        ),
+    );
     const findings: readonly Finding[] =
       coverageMonths < EMERGENCY_FUND_TARGET_MONTHS
         ? Object.freeze([
             Object.freeze({
               severity: FindingSeverity.HIGH,
               code: "EF_LOW",
+              version: "v1",
+              since: this.now(),
               title: "Emergency Fund below recommended level",
               description: `Current coverage is ${formatMonths(coverageMonths)} months. Target is ${EMERGENCY_FUND_TARGET_MONTHS} months.`,
             }),
@@ -66,12 +79,14 @@ export class SafetyRule implements HealthRule {
 
     return Object.freeze({
       ruleId: this.id,
+      version: this.version,
       pillar: PillarType.SAFETY,
       score,
       maximumScore: SAFETY_MAXIMUM_SCORE,
       metrics,
       reasons: Object.freeze([reason]),
       findings,
+      evidence,
     });
   }
 }
