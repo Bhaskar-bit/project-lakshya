@@ -10,6 +10,7 @@ export interface FinancialAssessmentInput {
   readonly savingsBalance: number;
   readonly cashBalance: number;
   readonly liquidFundBalance: number;
+  readonly otherEmergencyEligibleAssets: number;
 }
 
 /** Converts user-entered facts into the engine's FinancialState contract. */
@@ -18,6 +19,7 @@ export function financialAssessmentInputToState(input: FinancialAssessmentInput)
     { id: "cash", type: AssetType.CASH, name: "Cash", currentValue: input.cashBalance },
     { id: "savings", type: AssetType.SAVINGS, name: "Savings Account", currentValue: input.savingsBalance },
     { id: "liquid-fund", type: AssetType.LIQUID_FUND, name: "Liquid Fund", currentValue: input.liquidFundBalance },
+    { id: "other-emergency-assets", type: AssetType.LIQUID_FUND, name: "Other Emergency-Eligible Assets", currentValue: input.otherEmergencyEligibleAssets },
   ];
   const liabilities = [
     ...(input.creditCardOutstanding > 0 ? [{ id: "credit-card", type: LiabilityType.CREDIT_CARD, name: "Credit Card", outstandingBalance: input.creditCardOutstanding, emi: 0, interestRate: 0 }] : []),
