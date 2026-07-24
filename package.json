@@ -1,6 +1,10 @@
 {
   "name": "project-lakshya",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "build": "npm --prefix apps/web run build",
     "demo": "npm --prefix packages/financial-engine run build && npm --prefix apps/conversation-demo run start"
